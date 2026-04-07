@@ -1,0 +1,42 @@
+@page "/"
+@inject DashboardService DashboardService
+
+<MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-8">
+    <MudText Typo="Typo.h3" GutterBottom="true" Class="mb-6">Live Dashboard</MudText>
+
+    <MudGrid>
+        <MudItem xs="12" md="3">
+            <MudCard Elevation="3">
+                <MudCardHeader><MudText Typo="Typo.h6">Active Projects</MudText></MudCardHeader>
+                <MudCardContent><MudText Typo="Typo.h3" Color="Color.Success">@_overview.activeProjects</MudText></MudCardContent>
+            </MudCard>
+        </MudItem>
+        <MudItem xs="12" md="3">
+            <MudCard Elevation="3">
+                <MudCardHeader><MudText Typo="Typo.h6">Monthly Revenue</MudText></MudCardHeader>
+                <MudCardContent><MudText Typo="Typo.h3" Color="Color.Primary">@_overview.monthlyRevenue.ToString("C0")</MudText></MudCardContent>
+            </MudCard>
+        </MudItem>
+        <MudItem xs="12" md="3">
+            <MudCard Elevation="3">
+                <MudCardHeader><MudText Typo="Typo.h6">Bids Placed</MudText></MudCardHeader>
+                <MudCardContent><MudText Typo="Typo.h3">@_overview.bidsPlaced</MudText></MudCardContent>
+            </MudCard>
+        </MudItem>
+        <MudItem xs="12" md="3">
+            <MudCard Elevation="3">
+                <MudCardHeader><MudText Typo="Typo.h6">Jobs Scraped (7d)</MudText></MudCardHeader>
+                <MudCardContent><MudText Typo="Typo.h3" Color="Color.Info">@_overview.jobsScraped</MudText></MudCardContent>
+            </MudCard>
+        </MudItem>
+    </MudGrid>
+</MudContainer>
+
+@code {
+    private DashboardOverview _overview = new(0, 0, 0, 0);
+
+    protected override async Task OnInitializedAsync()
+    {
+        _overview = await DashboardService.GetOverviewAsync();
+    }
+}
