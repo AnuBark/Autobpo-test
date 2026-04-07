@@ -1,0 +1,26 @@
+@inherits LayoutComponentBase
+
+<MudLayout>
+    <MudAppBar Elevation="1">
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" OnClick="ToggleDrawer" />
+        <MudText Typo="Typo.h6" Class="ml-3">Digital Co-Founder BPO</MudText>
+        <MudSpacer />
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="Logout">Logout</MudButton>
+    </MudAppBar>
+
+    <MudDrawer Open="@_drawerOpen" ClipMode="DrawerClipMode.Docked" Elevation="2">
+        <MudNavMenu>
+            <MudNavLink Href="/" Icon="@Icons.Material.Filled.Dashboard">Dashboard</MudNavLink>
+        </MudNavMenu>
+    </MudDrawer>
+
+    <MudMainContent>
+        @Body
+    </MudMainContent>
+</MudLayout>
+
+@code {
+    private bool _drawerOpen = true;
+    private void ToggleDrawer() => _drawerOpen = !_drawerOpen;
+    private void Logout() => Navigation.NavigateTo("/", true);
+}
